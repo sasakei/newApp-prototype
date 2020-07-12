@@ -17,7 +17,7 @@ const ApiContextProvider = (props) => {
   const [cover, setCover] = useState([]);
 
   useEffect(() => {
-    const getProfile = async () => {
+    const getMyProfile = async () => {
       try {
         const resmy = await axios.get(
           "http://127.0.0.1:8000/api/user/myprofile/",
@@ -83,6 +83,51 @@ const ApiContextProvider = (props) => {
     getProfile();
     getInbox();
   }, [token, profile.id]);
+
+  const createProfile = async () => {
+    const createData = new FormData();
+    createData.append("nickName", editedProfile.nickName);
+    cover.name && createData.append("img", cover, cover.name);
+
+    try {
+      const res = await axios.post(
+        "http://127.0.0.1:8000/api/user/profile/",
+        createData,
+        {
+          headers: {
+            "Content-Type": "application/jason",
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+
+      setProfile(res.data);
+      setEditedProfile({ id: res.data.id, nickName: res.data.nickName });
+    } catch {
+      console.log("error");
+    }
+  };
+
+  const deleteProfile = async () => {
+    try {
+      await axios.delete(
+        `http://127.0.0.1:8000/api/user/profile/${profile.id}/`,
+        {
+          headers: {
+            "Content-Type": "application/jason",
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+      setprofiles(profiles.filter((dev) => dev.id !== profile.id));
+      setProfile([]);
+      setEditedProfile({ id: "", nickName: "" });
+      setCover([]);
+      setAskList([]);
+    } catch {
+      console.log("error");
+    }
+  };
 
   return <div></div>;
 };
