@@ -129,7 +129,7 @@ const ApiContextProvider = (props) => {
     }
   };
 
-  const editedProfile = async () => {
+  const editProfile = async () => {
     const editData = new FormData();
     editData.append("nickName", editedProfile.nickName);
     cover.name && editData.append("img", cover, cover.name);
@@ -236,7 +236,29 @@ const ApiContextProvider = (props) => {
     }
   };
 
-  return <div></div>;
+  return (
+    <ApiContext.Provider
+      value={{
+        profile,
+        profiles,
+        cover,
+        setCover,
+        askList,
+        AskListFull,
+        inbox,
+        newRequestFriend,
+        createProfile,
+        editProfile,
+        deleteProfile,
+        changeApprovalRequest,
+        sendDMCont,
+        editedProfile,
+        setEditedProfile,
+      }}
+    >
+      {props.children}
+    </ApiContext.Provider>
+  );
 };
 
 export default withCookies(ApiContextProvider);
