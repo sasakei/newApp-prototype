@@ -129,6 +129,46 @@ const ApiContextProvider = (props) => {
     }
   };
 
+  const editedProfile = async () => {
+    const editData = new FormData();
+    editData.append("nickName", editedProfile.nickName);
+    cover.name && editData.append("img", cover, cover.name);
+
+    try {
+      const res = await axios.put(
+        `http://127.0.0.1:8000/api/user/profile/${profile.id}/`,
+        editData,
+        {
+          headers: {
+            "Content-Type": "application/jason",
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+      setProfile(res.data);
+    } catch {
+      console.log("error");
+    }
+  };
+
+  const newRequestFriend = async (askData) => {
+    try {
+      const res = await axios.post(
+        `http://127.0.0.1:8000/api/user/approval/`,
+        askData,
+        {
+          headers: {
+            "Content-Type": "application/jason",
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+      setAskListFull([...askListFull, res.data]);
+    } catch {
+      console.log("error");
+    }
+  };
+
   return <div></div>;
 };
 
