@@ -154,7 +154,7 @@ const ApiContextProvider = (props) => {
   const newRequestFriend = async (askData) => {
     try {
       const res = await axios.post(
-        `http://127.0.0.1:8000/api/user/approval/`,
+        "http://127.0.0.1:8000/api/user/approval/",
         askData,
         {
           headers: {
@@ -164,6 +164,73 @@ const ApiContextProvider = (props) => {
         }
       );
       setAskListFull([...askListFull, res.data]);
+    } catch {
+      console.log("error");
+    }
+  };
+
+  const sendDMCont = async (uploadDM) => {
+    try {
+      await axios.post("http://127.0.0.1:8000/api/dm/message/", uploadDM, {
+        headers: {
+          "Content-Type": "application/jason",
+          Authorization: `Token ${token}`,
+        },
+      });
+    } catch {
+      console.log("error");
+    }
+  };
+
+  const changeApprovalRequest = async (uploadDataAsk, ask) => {
+    try {
+      const res = await axios.put(
+        `http://127.0.0.1:8000/api/user/approval/${ask.id}`,
+        uploadDataAsk,
+        {
+          headers: {
+            "Content-Type": "application/jason",
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+
+      setAskList(askList.map((item) => (item.id === ask.id ? res.data : item)));
+
+      const newDataAsk = new FormData();
+      newDataAsk.append("askTo", ask.askFrom);
+      newDataAsk.append("approved", true);
+
+      const newDataAskPut = new FormData();
+      newDataAskPut.append("askTo", askFrom);
+      newDataAskPut.append("askFrom", askTo);
+      newDataAskPut.append("approved", true);
+
+      const resp = askListFull.filter((item) => {
+        return item.askFrom === profile.userPro && item.askTo === ask.askFrom;
+      });
+
+      !resp[0]
+        ? await axios.post(
+            "http://127.0.0.1:8000/api/user/approval/",
+            newDataAsk,
+            {
+              headers: {
+                "Content-Type": "application/jason",
+                Authorization: `Token ${token}`,
+              },
+            }
+          )
+        : await axios.put(
+            `http://127.0.0.1:8000/api/user/approval/${resp[0].id}/`,
+            newDataAskPut,
+            {
+              headers: {
+                "Content-Type": "application/jason",
+                Authorization: `Token ${token}`,
+              },
+            }
+          );
     } catch {
       console.log("error");
     }
