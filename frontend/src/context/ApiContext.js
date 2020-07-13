@@ -95,7 +95,7 @@ const ApiContextProvider = (props) => {
         createData,
         {
           headers: {
-            "Content-Type": "application/jason",
+            "Content-Type": "application/json",
             Authorization: `Token ${token}`,
           },
         }
@@ -114,7 +114,7 @@ const ApiContextProvider = (props) => {
         `http://127.0.0.1:8000/api/user/profile/${profile.id}/`,
         {
           headers: {
-            "Content-Type": "application/jason",
+            "Content-Type": "application/json",
             Authorization: `Token ${token}`,
           },
         }
@@ -140,7 +140,7 @@ const ApiContextProvider = (props) => {
         editData,
         {
           headers: {
-            "Content-Type": "application/jason",
+            "Content-Type": "application/json",
             Authorization: `Token ${token}`,
           },
         }
@@ -158,7 +158,7 @@ const ApiContextProvider = (props) => {
         askData,
         {
           headers: {
-            "Content-Type": "application/jason",
+            "Content-Type": "application/json",
             Authorization: `Token ${token}`,
           },
         }
@@ -173,7 +173,7 @@ const ApiContextProvider = (props) => {
     try {
       await axios.post("http://127.0.0.1:8000/api/dm/message/", uploadDM, {
         headers: {
-          "Content-Type": "application/jason",
+          "Content-Type": "application/json",
           Authorization: `Token ${token}`,
         },
       });
@@ -189,7 +189,7 @@ const ApiContextProvider = (props) => {
         uploadDataAsk,
         {
           headers: {
-            "Content-Type": "application/jason",
+            "Content-Type": "application/json",
             Authorization: `Token ${token}`,
           },
         }
@@ -216,7 +216,7 @@ const ApiContextProvider = (props) => {
             newDataAsk,
             {
               headers: {
-                "Content-Type": "application/jason",
+                "Content-Type": "application/json",
                 Authorization: `Token ${token}`,
               },
             }
@@ -226,7 +226,7 @@ const ApiContextProvider = (props) => {
             newDataAskPut,
             {
               headers: {
-                "Content-Type": "application/jason",
+                "Content-Type": "application/json",
                 Authorization: `Token ${token}`,
               },
             }
