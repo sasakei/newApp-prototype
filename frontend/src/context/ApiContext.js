@@ -202,8 +202,8 @@ const ApiContextProvider = (props) => {
       newDataAsk.append("approved", true);
 
       const newDataAskPut = new FormData();
-      newDataAskPut.append("askTo", askFrom);
-      newDataAskPut.append("askFrom", askTo);
+      newDataAskPut.append("askTo", ask.askFrom);
+      newDataAskPut.append("askFrom", ask.askTo);
       newDataAskPut.append("approved", true);
 
       const resp = askListFull.filter((item) => {
@@ -244,7 +244,7 @@ const ApiContextProvider = (props) => {
         cover,
         setCover,
         askList,
-        AskListFull,
+        askListFull,
         inbox,
         newRequestFriend,
         createProfile,
