@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import { GoMail } from "react-icons/go";
 import { BsFillPeopleFill } from "react-icons/bs";
 import Profile from "./Profile";
+import ProfileManager from "./ProfileManager";
 
 const Main = () => {
   const { profiles, profile, askList, askListFull, inbox } = useContext(
@@ -33,7 +34,9 @@ const Main = () => {
       </Grid>
 
       <Grid item xs={4}>
-        <div className="app-details"></div>
+        <div className="app-details">
+          <ProfileManager />
+        </div>
         <h3 className="title-ask">
           <BsFillPeopleFill className="badge" />
           Approval request list
