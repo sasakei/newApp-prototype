@@ -5,6 +5,7 @@ import { GoMail } from "react-icons/go";
 import { BsFillPeopleFill } from "react-icons/bs";
 import Profile from "./Profile";
 import ProfileManager from "./ProfileManager";
+import Ask from "./Ask";
 
 const Main = () => {
   const { profiles, profile, askList, askListFull, inbox } = useContext(
@@ -41,6 +42,21 @@ const Main = () => {
           <BsFillPeopleFill className="badge" />
           Approval request list
         </h3>
+
+        <div className="app-details">
+          <ul>
+            {profile.id &&
+              askList.map((ask) => (
+                <Ask
+                  key={ask.id}
+                  ask={ask}
+                  prof={profiles.filter((item) => {
+                    return item.userPro === ask.askFrom;
+                  })}
+                />
+              ))}
+          </ul>
+        </div>
       </Grid>
 
       <Grid item xs={4}>
