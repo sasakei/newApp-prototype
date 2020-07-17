@@ -6,6 +6,7 @@ import { BsFillPeopleFill } from "react-icons/bs";
 import Profile from "./Profile";
 import ProfileManager from "./ProfileManager";
 import Ask from "./Ask";
+import InboxDM from "./InboxDM";
 
 const Main = () => {
   const { profiles, profile, askList, askListFull, inbox } = useContext(
@@ -36,7 +37,9 @@ const Main = () => {
 
       <Grid item xs={4}>
         <div className="app-details">
-          <ProfileManager />
+          <div className="task-list">
+            <ProfileManager />
+          </div>
         </div>
         <h3 className="title-ask">
           <BsFillPeopleFill className="badge" />
@@ -44,18 +47,20 @@ const Main = () => {
         </h3>
 
         <div className="app-details">
-          <ul>
-            {profile.id &&
-              askList.map((ask) => (
-                <Ask
-                  key={ask.id}
-                  ask={ask}
-                  prof={profiles.filter((item) => {
-                    return item.userPro === ask.askFrom;
-                  })}
-                />
-              ))}
-          </ul>
+          <div className="task-list">
+            <ul>
+              {profile.id &&
+                askList.map((ask) => (
+                  <Ask
+                    key={ask.id}
+                    ask={ask}
+                    prof={profiles.filter((item) => {
+                      return item.userPro === ask.askFrom;
+                    })}
+                  />
+                ))}
+            </ul>
+          </div>
         </div>
       </Grid>
 
@@ -63,7 +68,22 @@ const Main = () => {
         <h3>
           <GoMail className="badge" /> DM Inbox
         </h3>
-        <div className="app-dms"></div>
+        <div className="app-dms">
+          <div className="task-list">
+            <ul>
+              {profile.id &&
+                inbox.map((dm) => (
+                  <InboxDM
+                    key={dm.id}
+                    ask={dm}
+                    prof={profiles.filter((item) => {
+                      return item.userPro === dm.sender;
+                    })}
+                  />
+                ))}
+            </ul>
+          </div>
+        </div>
       </Grid>
     </Grid>
   );
